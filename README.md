@@ -7,7 +7,7 @@ It classifies news articles as **Real** or **Fake** based on their textual conte
 ---
 
 ## 🚀 Live Demo
-👉 [Click here to try the app](https://share.streamlit.io/)
+👉 [Click here to try the app](https://fakenewsdetector-8gpymfztyazgjyqkjdhhe7.streamlit.app/)
 
 ---
 
@@ -53,3 +53,20 @@ Users can paste any headline or article text into the app, and it will instantly
 ```bash
 git clone https://github.com/<your-username>/fake-news-detector.git
 cd fake-news-detector
+
+###🌐 Deployment
+
+The project is deployed using Streamlit Cloud.
+Once deployed, users can access it directly through a shareable URL.
+
+🧑‍💻 Author
+
+Aayush Dhote
+💼 Aspiring AI Engineer | Data Science & Machine Learning Enthusiast]
+❤️ Acknowledgements
+
+Streamlit
+
+Scikit-learn Documentation
+
+Dataset: Kaggle – Fake and True News
