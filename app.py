@@ -29,15 +29,26 @@ if st.button("🔍 Check News Authenticity"):
     if news_text.strip() == "":
         st.warning("⚠️ Please enter some text to analyze.")
     else:
-        input_vector = vectorizer.transform([news_text])
+                input_vector = vectorizer.transform([news_text])
         prediction = model.predict(input_vector)[0]
-        prob = model.predict_proba(input_vector)[0]
-        confidence = round(np.max(prob)*100, 2)
+
+        # Try to get probability if model supports it
+        try:
+            prob = model.predict_proba(input_vector)[0]
+            confidence = round(np.max(prob)*100, 2)
+        except AttributeError:
+            confidence = None  # model doesn't support probability
 
         if prediction == 1:
-            st.error(f"🚨 Fake News Detected — Confidence: {confidence}%")
+            if confidence:
+                st.error(f"🚨 Fake News Detected — Confidence: {confidence}%")
+            else:
+                st.error("🚨 Fake News Detected")
         else:
-            st.success(f"✅ Real News Detected — Confidence: {confidence}%")
+            if confidence:
+                st.success(f"✅ Real News Detected — Confidence: {confidence}%")
+            else:
+                st.success("✅ Real News Detected")
 
 st.markdown("---")
 st.markdown("<p style='text-align:center;color:gray;'>Made with ❤️ by Aayush</p>", unsafe_allow_html=True)
