@@ -2,14 +2,14 @@ import streamlit as st
 import pickle
 import numpy as np
 
-#Setting Page
+# Setting Page
 st.set_page_config(page_title="Fake News Detector", page_icon="📰", layout="centered")
 
-#App title
+# App title
 st.title("📰 Fake News Detector")
 st.write("This app predicts whether a news article is **Fake or Real** using a machine learning model trained on a Fake/True news dataset.")
 
-#Load model + vectorizer (cached for speed)
+# Load model + vectorizer (cached for speed)
 @st.cache_resource
 def load_artifacts():
     with open("model.pkl", "rb") as f:
@@ -24,18 +24,17 @@ model, vectorizer = load_artifacts()
 st.markdown("### ✍️ Paste a News Article or Headline Below:")
 news_text = st.text_area("", height=200, placeholder="Paste news article here...")
 
-#Predict button
+# Predict button
 if st.button("🔍 Check News Authenticity"):
     if news_text.strip() == "":
         st.warning("⚠️ Please enter some text to analyze.")
     else:
-                input_vector = vectorizer.transform([news_text])
+        input_vector = vectorizer.transform([news_text])
         prediction = model.predict(input_vector)[0]
 
-        # Try to get probability if model supports it
         try:
             prob = model.predict_proba(input_vector)[0]
-            confidence = round(np.max(prob)*100, 2)
+            confidence = round(np.max(prob) * 100, 2)
         except AttributeError:
             confidence = None  # model doesn't support probability
 
