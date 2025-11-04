@@ -1,4 +1,3 @@
-# Fake_News_Detector
 # 📰 Fake News Detector using Machine Learning
 
 A **Fake News Detection Web App** built using **Python, Scikit-learn, and Streamlit**.  
