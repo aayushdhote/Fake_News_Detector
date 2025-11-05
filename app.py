@@ -22,7 +22,12 @@ model, vectorizer = load_artifacts()
 
 # Text input
 st.markdown("### ✍️ Paste a News Article or Headline Below:")
-news_text = st.text_area("", height=200, placeholder="Paste news article here...")
+news_text = st.text_area(
+    "News Input",
+    height=200,
+    placeholder="Paste news article here...",
+    label_visibility="collapsed"
+)
 
 # Predict button
 if st.button("🔍 Check News Authenticity"):
@@ -31,8 +36,10 @@ if st.button("🔍 Check News Authenticity"):
     else:
         input_vector = vectorizer.transform([news_text])
         prediction = model.predict(input_vector)[0]
-        prob = model.predict_proba(input_vector)[0]
-        confidence = round(np.max(prob) * 100, 2)
+
+        # Use decision_function instead of predict_proba (since PassiveAggressiveClassifier has no predict_proba)
+        decision = model.decision_function(input_vector)[0]
+        confidence = round(100 / (1 + np.exp(-abs(decision))), 2)
 
         if prediction == 1:
             st.error(f"🚨 Fake News Detected — Confidence: {confidence}%")
@@ -41,4 +48,3 @@ if st.button("🔍 Check News Authenticity"):
 
 st.markdown("---")
 st.markdown("<p style='text-align:center;color:gray;'>Made with ❤️ by Aayush</p>", unsafe_allow_html=True)
-
