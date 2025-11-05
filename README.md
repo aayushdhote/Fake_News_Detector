@@ -18,6 +18,11 @@ Users can paste any headline or article text into the app, and it will instantly
 
 ---
 
+<p align="center">
+  <img src="Screenshot%202025-11-05%20081551.png" alt="Fake News Detector App Screenshot" width="600"/>
+</p>
+
+
 ## ⚙️ How It Works
 
 1. The dataset contains two files:
